@@ -2,12 +2,16 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator, BranchPythonOperator
 import pandas as pd
 import re
-import datetime
+from datetime import datetime
 import os
+from hashlib import sha256
+import logging
 
-input_path = '~/input/'
-output_success_path = '~/output/success/'
-output_fail_path = '~/output/fail/'
+os.chdir('/home/amph/')
+
+input_path = './input/'
+output_success_path = './output/success/'
+output_fail_path = './output/fail/'
 
 def name_check(name):
     # Supporting function to check validity of Name. Since missing names will be read as NaN in pandas, the name != name is used to check for missing names.
@@ -35,6 +39,8 @@ def extract_names(name,index):
     return split[index]
 
 def load_data():
+    LOGGER = logging.getLogger("airflow.task")
+    LOGGER.info(os.getcwd())
     # Function to read and process the data while splitting it into successful/unsuccessful in DAG. Mobile numbers tend to be read in as numbers, so convert to str
     df = pd.read_csv(input_path+'Data_Ingest.csv',parse_dates = ['dob'])
     df['mobile'] = df['mobile'].apply(str)
@@ -49,7 +55,7 @@ def load_data():
     unsuccessful_apps = df.loc[~success]
 
     # write out the unsuccessful entries into the output/fail/ folder along with the checks to show why they failed
-    unsuccessful_apps.to_csv(output_fail_path+'Failed_Ingest_'+datetime.datetime.now().strftime('%Y-%m-%d-%H%M')+'.csv', index=False)
+    unsuccessful_apps.to_csv(output_fail_path+'Failed_Ingest_'+datetime.now().strftime('%Y-%m-%d-%H%M')+'.csv', index=False)
 
     # Perform the requested transformations on the successful entries
     successful_apps['birthday'] = df['dob'].dt.strftime('%Y%m%d')
@@ -58,7 +64,7 @@ def load_data():
 
     # write out the successful entries to output/success/ folder
     successful_apps = successful_apps.loc[:,['first_name','last_name','email','birthday','ID','above_18']]
-    successful_apps.to_csv(output_success_path + 'Processed_'+datetime.datetime.now().strftime('%Y-%m-%d-%H%M')+'.csv', index=False)
+    successful_apps.to_csv(output_success_path + 'Processed_'+datetime.now().strftime('%Y-%m-%d-%H%M')+'.csv', index=False)
 
     # Delete the processed ingestion file
     os.remove(input_path+"Data_Ingest.csv")
