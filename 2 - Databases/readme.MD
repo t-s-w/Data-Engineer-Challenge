@@ -46,7 +46,13 @@ Contains information about the members registered to the e-commerce company, the
 
 ### To see the top 10 members by spending
 
-```select member_id, sum(total_price) total_spending group by member_id order by total_spending desc limit 10```
+```sql
+select member_id, sum(total_price) total_spending 
+from ft_transaction 
+group by member_id 
+order by total_spending desc 
+limit 10;
+```
 
 ### To see the top 3 items frequently bought by members
 
@@ -54,8 +60,22 @@ It is currently unclear whether "frequently" refers to number of times each item
 
 If the former:
 
-```select b.item_name, count(distinct a.receipt_id) receipts from ft_itemlevel a join lu_iteminfo b on a.sku_id = b.sku_id group by b.item_name order by receipts desc limit 3```
+```sql
+select b.item_name, a.sku_id, count(distinct a.receipt_id) total_receipts 
+from ft_itemlevel a 
+join lu_iteminfo b on a.sku_id = b.sku_id
+group by b.item_name, a.sku_id
+order by receipts desc 
+limit 3
+```
 
 If the latter:
 
-```select b.item_name, sum(a.quantity) total_quantity from ft_itemlevel a join lu_iteminfo b on a.sku_id = b.sku_id group by b.itemname order by total_quantity desc limit 3```
+```sql
+select b.item_name, a.sku_id, sum(a.quantity) total_quantity 
+from ft_itemlevel a 
+join lu_iteminfo b on a.sku_id = b.sku_id 
+group by b.itemname, a.sku_id
+order by total_quantity desc 
+limit 3
+```
