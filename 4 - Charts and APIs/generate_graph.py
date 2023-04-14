@@ -9,4 +9,4 @@ data = json.loads(response_API.content)
 df = pd.DataFrame([{'Date':row['Date'],'Cases':row['Cases']} for row in data])
 
 fig = px.line(df,x = 'Date',y = 'Cases')
-fig.write_html('./index.html')
+fig.write_html('../index.html')
