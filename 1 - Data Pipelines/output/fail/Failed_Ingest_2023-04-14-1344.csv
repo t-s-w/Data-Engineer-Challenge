@@ -1,5 +1,0 @@
-name,dob,email,mobile,mobile_length_check,above_18,name_check,email_check
-,1989-02-28,bad.id@gmail.com,81346372,True,True,False,True
-Too Young,2010-03-31,too.young@test.com,84214213,True,False,True,True
-Invalid Phone,1994-06-30,test@test.com,432671,False,True,True,True
-Invalid Email,1995-08-31,invalid,82474231,True,True,True,False
