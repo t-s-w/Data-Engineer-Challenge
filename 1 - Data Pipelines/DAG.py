@@ -27,7 +27,7 @@ def email_check(email):
     # but since the challenge specifically states .com or .net only I will take that to be a business requirement.
     if email != email:
         return False
-    return re.search('@[a-zA-Z]+.(com|net)$',email) is not None
+    return re.search('@[a-zA-Z-]+.(com|net)$',email) is not None
 
 def extract_hash(YYYYMMDD):
     # Extract first five bytes from SHA256 hash of YYYYMMDD-form birthday.
