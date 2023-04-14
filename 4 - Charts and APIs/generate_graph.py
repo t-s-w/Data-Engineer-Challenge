@@ -8,5 +8,5 @@ data = json.loads(response_API.content)
 
 df = pd.DataFrame([{'Date':row['Date'],'Cases':row['Cases']} for row in data])
 
-fig = px.line(df,x = 'Date',y = 'Cases')
+fig = px.line(df,x = 'Date',y = 'Cases', title = "Total Confirmed COVID-19 Cases in Singapore Over Time")
 fig.write_html('../index.html')
