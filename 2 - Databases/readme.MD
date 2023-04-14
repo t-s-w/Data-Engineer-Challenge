@@ -6,6 +6,8 @@ With the working directory as `2 - Databases`, run the following command:
 
 ```docker compose up -d --build```
 
+# Data Definition
+
 ![](schema.png)
 
 ## FT_TRANSACTION
