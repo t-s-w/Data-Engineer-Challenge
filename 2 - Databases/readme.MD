@@ -1,5 +1,11 @@
 # Section 2 - Databases
 
+# Setting up the data base
+
+With the working directory as `2 - Databases`, run the following command:
+
+```docker compose up -d --build```
+
 ![](schema.png)
 
 ## FT_TRANSACTION
