@@ -10,7 +10,7 @@ There will be two tables, FT_TRANSACTION and FT_ITEMLEVEL for keeping sales data
 * member_id: The member ID of the member who made this purchase/transaction. 
 * order_datetime: The date and time at which the order was placed.
 * total_price: The total purchase price of the transaction, taken as a whole.
-* total_weight: The total weight of the items sold in the transaction.
+* total_weight: The total weight of the items sold in the transaction (in kg).
 
 ## FT_ITEMLEVEL
 
@@ -28,7 +28,7 @@ Contains descriptive information about the items available in the e-commerce com
 * sku_id: The Stock-keeping unit ID of an item, used to distinguish different items from one another. This will serve as the primary key since it is like an NRIC for each possible item sold.
 * item_name: A descriptive readable name to describe the item.
 * unit_price: The default price of the item sold, before discounts.
-* unit_weight: The weight of one SKU of the item.
+* unit_weight: The weight of one SKU of the item (in kg).
 * manufacturer_name: The name of the manufacturer of the item.
 
 ## LU_MEMBER
