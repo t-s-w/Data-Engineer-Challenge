@@ -78,7 +78,7 @@ def load_data():
 
 with DAG("application_pipeline", # Dag id
 start_date=datetime(2023, 4 ,13), # start date, the 1st of January 2021 
-schedule_interval='* * * * *',  # Cron expression, here it is a preset of Airflow, @daily means once every day.
+schedule_interval='@hourly',  # Cron expression, here it is a preset of Airflow, @daily means once every day.
 catchup=False  # Catchup 
 ) as dag:
     task_1 = PythonOperator(
