@@ -41,3 +41,21 @@ Contains information about the members registered to the e-commerce company, the
 * date_of_birth: Date of Birth of the member.
 * mobile_no: 8-digit mobile number of the member, without country codes or any other symbols.
 * email: E-mail address of the member.
+
+# Queries
+
+### To see the top 10 members by spending
+
+```select member_id, sum(total_price) total_spending group by member_id order by total_spending desc limit 10```
+
+### To see the top 3 items frequently bought by members
+
+It is currently unclear whether "frequently" refers to number of times each item shows up in receipts, or whether it is total number of SKUs sold.
+
+If the former:
+
+```select b.item_name, count(distinct a.receipt_id) receipts from ft_itemlevel a join lu_iteminfo b on a.sku_id = b.sku_id group by b.item_name order by receipts desc limit 3```
+
+If the latter:
+
+```select b.item_name, sum(a.quantity) total_quantity from ft_itemlevel a join lu_iteminfo b on a.sku_id = b.sku_id group by b.itemname order by total_quantity desc limit 3```
