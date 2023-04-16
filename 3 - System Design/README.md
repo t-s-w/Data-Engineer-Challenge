@@ -8,7 +8,9 @@ Google Cloud Storage can be used for the ingestion of data. The user application
 
 ## 2 - ETL Scripts
 
-While details on the exact image processing performed is not entirely clear, for the moment it will be assumed that they are Python scripts. Python scripts can be run as DAGs in Cloud Composer, which also has the functionality of scheduling the jobs to be run and in which sequence the scripts are supposed to be run. Cloud Composer is also integrated with other Google Cloud Products such as Cloud Storage and BigQuery, which makes the workflow smoother between ingestion to data uploading.
+While details on the exact image processing performed is not entirely clear, for the moment it will be assumed that they are Python scripts. Python scripts can be run as DAGs in Cloud Composer, which also has the functionality of scheduling the jobs to be run and in which sequence the scripts are supposed to be run. Cloud Composer can dynamically spin up workers as needed for pipeline jobs so that less attention has to be paid to provisioning of resources while offering direct integration with other services like Cloud Storage, where for example files can be directly accessed from buckets through the gs:// URIs.
+
+Depending on the type of processing on the images performed, other tools may be more suitable. Cloud Dataproc or Compute Engine VMs with Apache Spark may be more suitable for running large batch jobs with machine learning involved.
 
 ## 3 - Post-processing Archival
 
